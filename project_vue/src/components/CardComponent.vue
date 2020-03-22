@@ -1,16 +1,25 @@
 <template>
   <div>
-    <h4>{{ title }}</h4>
+    <h4>{{ name }}</h4>
+    <h5>{{ category }}</h5>
+    <h5>{{ popularity }}</h5>
+    <img :src="+cover" />
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      title: "this title"
-    };
-  }
+  name: "Card",
+  props: [
+    "name",
+    "id",
+    "game",
+    "popularity",
+    "summary",
+    "category",
+    "cover",
+    "url"
+  ]
 };
 </script>
 

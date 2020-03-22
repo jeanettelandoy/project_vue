@@ -20,7 +20,12 @@ const routes = [
   {
     path: "/GameList",
     name: "GameList",
-    components: GameList
+    component: GameList
+  },
+  {
+    path: "/GameView",
+    name: "GameView",
+    component: GameList
   }
 ];
 
