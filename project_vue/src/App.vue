@@ -8,6 +8,12 @@
   </div>
 </template>
 
+<script>
+(function() {
+  localStorage.setItem("username", "user");
+  localStorage.setItem("password", "paswd");
+})();
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
