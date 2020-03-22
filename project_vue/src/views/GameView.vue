@@ -1,19 +1,10 @@
 <template>
   <div class="[ row ]">
-    <h1>Games</h1>
+    <h1>Events Listing</h1>
     <!-- <router-link :to="{ name: 'card-show', params: { id: '1' } }"
       >Show Event #1</router-link
     > -->
-    <div v-for="game in games" class="[ col-sm-3 ]" v-bind:key="game">
-      <router-link :to="{ name: 'GameView', params: { id: game.id } }">
-        <Card
-          v-bind:name="game.name"
-          v-bind:category="game.category"
-          v-bind:popularity="game.popularity"
-          v-bind:cover="game.cover"
-        ></Card
-      ></router-link>
-    </div>
+    <h1>{{ name }}</h1>
   </div>
 </template>
 
@@ -22,7 +13,7 @@ import Card from "@/components/CardComponent.vue";
 import axios from "axios";
 
 export default {
-  name: "GameList",
+  name: "GameView",
   components: {
     Card
   },
@@ -39,7 +30,6 @@ export default {
   // },
   created() {
     const app = this;
-
     axios({
       url: "https://cors-anywhere.herokuapp.com/https://api-v3.igdb.com/games",
       method: "POST",

@@ -66,7 +66,7 @@ export default {
       } else {
         const sessionID = "123";
         sessionStorage.setItem("sessionID", sessionID);
-        this.$router.push({ name: "Home" });
+        this.$router.push({ name: "GameList" });
       }
     }
   }
