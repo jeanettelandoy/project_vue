@@ -3,7 +3,7 @@
     <h4>{{ name }}</h4>
     <h5>{{ category }}</h5>
     <h5>{{ popularity }}</h5>
-    <img :src="+cover" />
+    <img />
   </div>
 </template>
 
