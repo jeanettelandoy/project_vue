@@ -13,16 +13,6 @@
               {{ game.genres[0].name }}
             </div>
           </div>
-          <!-- <Card
-          class="card"
-          v-bind:name="game.name"
-          v-bind:category="game.category"
-          v-bind:popularity="game.popularity"
-          v-bind:cover="game.cover"
-          ><img
-            :src="game.cover.url.replace('t_thumb', 't_cover_big')"
-            alt="cover"/></Card
-      >-->
         </router-link>
       </div>
     </div>
@@ -30,14 +20,12 @@
 </template>
 
 <script>
-//import Card from "@/components/CardComponent.vue";
 import NavBar from "@/components/NavBarComponent.vue";
 import axios from "axios";
 
 export default {
   name: "GameList",
   components: {
-    //Card
     NavBar
   },
   data() {
@@ -57,7 +45,7 @@ export default {
     axios({
       url:
         "https://cors-anywhere.herokuapp.com/https://api-v3.igdb.com/games/?fields=name,genres.name,cover.url,popularity&order=popularity:desc&expand=genres",
-      method: "POST",
+      method: "GET",
       headers: {
         Accept: "application/json",
         "user-key": "59aeb1b217ba38dc388929d3f9aa29da"
