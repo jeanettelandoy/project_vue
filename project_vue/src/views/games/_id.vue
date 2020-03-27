@@ -1,8 +1,32 @@
 <template>
   <div>
     <NavBar></NavBar>
-    Game detail
-    <h1>{{ game.name }}</h1>
+    <div class="container-fluid" style="padding: 20px;">
+      <div class="card mb-3" style="max-width: 840px;">
+        <div class="row">
+          <div class="col-md-4" style="padding: 20px;">
+            <img
+              :src="game[0].cover.url.replace('t_thumb', 't_cover_big')"
+              alt="cover"
+              class="card-img"
+            />
+          </div>
+          <div class="col-md-8" style="padding: 10px;">
+            <div class="card-body">
+              <h2 class="card-title">{{ game[0].name }}</h2>
+              <p class="card-text">{{ game[0].summary }}</p>
+              <p class="card-text">
+                <small class="text-muted">Last updated 3 mins ago</small>
+              </p>
+              <button type="button" class="btn thebutton">Add to cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-1">
+        <button type="button" class="btn thebutton">Go back to Games</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -15,17 +39,25 @@ export default {
     NavBar
   },
 
-  //   data() {
-  //     return {
-  //       game
-  //     };
-  //   },
-
+  data() {
+    return {
+      game: []
+    };
+  },
   created() {
     const app = this;
-    // const routeid = this.$route.params;
+    let routeid = this.$route.params.id;
+
+    // const segment = new URL(window.location.href).pathname
+    //   .split("/")
+    //   .filter(Boolean)
+    //   .pop();
+    // console.log(segment);
     axios({
-      url: `https://cors-anywhere.herokupp.com/https://api-v3.igdb.com/games/${this.response.game.id}?fields=name,genres.name,cover.url,popularity&order=popularity:desc&expand=genres`,
+      url:
+        "https://cors-anywhere.herokuapp.com/https://api-v3.igdb.com/games/" +
+        routeid.toString() +
+        "/?fields=name,genres.name,cover.url,popularity&order=popularity:desc&expand=genres",
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -37,7 +69,9 @@ export default {
       .then(response => {
         app.game = response.data;
         console.log(response.data);
-        return { game: response.data };
+        // return {
+        //   game: response.data[0]
+        // };
       })
       .catch(err => {
         console.error(err);
@@ -45,3 +79,10 @@ export default {
   }
 };
 </script>
+<style scoped>
+.thebutton {
+  background-color: #193031;
+  color: white;
+  padding: 10px;
+}
+</style>
