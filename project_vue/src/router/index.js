@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import LandingPage from "../views/LandingPage.vue";
 import GameList from "../views/GameList.vue";
+import _id from "../views/games/_id.vue";
 
 Vue.use(VueRouter);
 
@@ -23,9 +24,9 @@ const routes = [
     component: GameList
   },
   {
-    path: "/GameView",
-    name: "GameView",
-    component: GameList
+    path: "/games/:id",
+    name: "_id",
+    component: _id
   }
 ];
 
