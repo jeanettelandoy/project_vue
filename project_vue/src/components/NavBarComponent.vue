@@ -1,14 +1,42 @@
 <template>
   <div>
     <div class="row row--navbar">
-      <div class="col-md-1"><img src="../assets/logo_bb_w.png" /></div>
-      <div class="col-md-3"><h1>Bits and Bots</h1></div>
+      <router-link :to="'/GameList/'">
+        <div class="col-md-1"><img src="../assets/logo_bb_w.png" /></div
+      ></router-link>
+      <div class="col-md-4"><h1>Bits and Bots</h1></div>
+      <div class="col-md-7" style="float:right display: inline">
+        <h5 v-if="cart != null" :id="id" :cart="cart" @STORAGE_KEY="UpdateCart">
+          In cart: {{ cart.length }}
+        </h5>
+        <router-link :to="'/Cart/'" :id="id">
+          <button class="btn">Go to cart</button></router-link
+        >
+      </div>
     </div>
   </div>
 </template>
 <script>
+const STORAGE_KEY = "cart-storeage";
+
 export default {
-  name: "NavBar"
+  name: "NavBar",
+  props: ["id"],
+  data: function() {
+    return {
+      cart: []
+    };
+  },
+  methods: {
+    UpdateCart(id) {
+      this.cart.push(id);
+      this.$emit(STORAGE_KEY, id);
+      localStorage.setItem(STORAGE_KEY, this.cart);
+    }
+  },
+  created() {
+    this.cart = JSON.parse(localStorage.getItem(STORAGE_KEY));
+  }
 };
 </script>
 
@@ -27,5 +55,8 @@ h1 {
   font-size: 28px;
   font-weight: 600;
   color: #f0ec74;
+}
+h5 {
+  color: white;
 }
 </style>

@@ -20,7 +20,7 @@
         v-bind:class="{ 'error-border': inputPasswordError }"
         class="[ form-control ]"
       />
-      <button type="button" v-on:click="login" class="[ btn btn-default ]">
+      <button type="button" v-on:click="register" class="[ btn btn-default ]">
         Submit
       </button>
     </form>
@@ -28,6 +28,7 @@
 </template>
 
 <script>
+let username = "";
 export default {
   name: "Register",
   props: [
@@ -38,9 +39,10 @@ export default {
     "inputPasswordError"
   ],
   methods: {
-    login: function() {
+    register: function() {
       const app = this;
-      app.$emit("clicked", this.username, this.password);
+      localStorage.setItem(username, JSON.stringify(this.username));
+      app.$emit("clicked", this.username);
     }
   }
 };

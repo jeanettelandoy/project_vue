@@ -1,17 +1,22 @@
 <template>
   <div>
-    <NavBar></NavBar>
-    <div class="row row-header"><h1>Games</h1></div>
-
+    <NavBar :cart="cart" @STORAGE_KEY="UpdateCart"> </NavBar>
+    <div class="jumbotron">
+      <h1>Games</h1>
+      <br />
+      <h3>Lets play</h3>
+    </div>
     <div class="gamelistbody">
       <div v-for="game in games" class="[ col-sm-3 ]" v-bind:key="game.id">
         <router-link :to="'/games/' + game.id">
           <div class="card">
-            <img :src="game.cover.url" alt="cover" />
-            <div>{{ game.name }}</div>
-            <div>
-              {{ game.genres[0].name }}
-            </div>
+            <img
+              :src="game.cover.url.replace('t_thumb', 't_cover_big')"
+              alt="cover"
+            />
+            <h3>{{ game.name }}</h3>
+            <h5>Genre: {{ game.genres[0].name }}</h5>
+            <h5>Game id: {{ game.id }}</h5>
           </div>
         </router-link>
       </div>
@@ -23,6 +28,8 @@
 import NavBar from "@/components/NavBarComponent.vue";
 import axios from "axios";
 
+const STORAGE_KEY = "cart-storeage";
+
 export default {
   name: "GameList",
   components: {
@@ -30,8 +37,22 @@ export default {
   },
   data() {
     return {
-      games: []
+      games: [],
+      cart: []
     };
+  },
+  props: ["id"],
+  methods: {
+    AddToCart(id) {
+      this.cart.push(id);
+      this.$emit(STORAGE_KEY, id);
+      console.log(id);
+    },
+
+    UpdateCart(id) {
+      localStorage.getItem(this.cart);
+      this.cart.push(id);
+    }
   },
   // beforeMount: function() {
   //   const app = this;
@@ -65,20 +86,46 @@ export default {
 </script>
 
 <style scoped>
+h1 {
+  font-family: "Courier New", Courier, monospace;
+  font-weight: 700;
+  color: #fff;
+}
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Courier New", Courier, monospace;
+}
+p {
+  font-family: Arial, Helvetica, sans-serif;
+}
 .card {
-  padding: 10px;
-  margin: 10px;
+  padding: 5px;
+  max-width: 350px;
+  margin: auto;
   border: none;
+  margin-top: 20px;
   border-radius: 20px;
-  border: #73c09f solid 3px;
   background-color: white;
+  color: #193031;
+  z-index: 20;
+  -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2),
+    0 1px 5px 0 rgba(0, 0, 0, 0.13);
+  -moz-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2),
+    0 1px 5px 0 rgba(0, 0, 0, 0.13);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.13);
+}
+img {
+  border-radius: 10%;
+  max-width: 250px;
 }
 
 .card:hover,
 .card:focus,
 .card:active {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
+  -webkit-transform: scale(1.03);
+  transform: scale(1.03);
   z-index: 20;
   -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2),
     0 1px 5px 0 rgba(0, 0, 0, 0.13);
@@ -90,7 +137,10 @@ export default {
   padding-top: 20px;
   padding-bottom: 20px;
 }
-body {
-  background-color: #e7e7e7;
+.jumbotron {
+  background-image: url("../assets/bilde2.png");
+  color: white;
+  height: 500px;
+  align-self: baseline;
 }
 </style>
