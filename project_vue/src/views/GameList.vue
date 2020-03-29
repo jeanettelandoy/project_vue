@@ -54,12 +54,12 @@ export default {
       this.cart.push(id);
     }
   },
-  // beforeMount: function() {
-  //   const app = this;
-  //   if (!sessionStorage.getItem("sessionID")) {
-  //     app.$router.push({ name: "LandingPage" });
-  //   }
-  // },
+  beforeMount: function() {
+    const app = this;
+    if (!sessionStorage.getItem("sessionID")) {
+      app.$router.push({ name: "LandingPage" });
+    }
+  },
   created() {
     const app = this;
 
