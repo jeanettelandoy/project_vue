@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavBar :cart="cart" @addtocart="UpdateCart"> </NavBar>
+    <NavBar :cart="cart" @STORAGE_KEY="UpdateCart"> </NavBar>
     <div class="row row-header"><h1>Games</h1></div>
     <NProgress></NProgress>
     <div class="gamelistbody">
@@ -23,6 +23,8 @@
 import NavBar from "@/components/NavBarComponent.vue";
 import axios from "axios";
 
+const STORAGE_KEY = "cart-storeage";
+
 export default {
   name: "GameList",
   components: {
@@ -38,7 +40,7 @@ export default {
   methods: {
     AddToCart(id) {
       this.cart.push(id);
-      this.$emit("addtocart", id);
+      this.$emit(STORAGE_KEY, id);
       console.log(id);
     },
 

@@ -1,32 +1,37 @@
 <template>
   <div>
-    <NavBar :id="id" @addtocart="UpdateCart"></NavBar>
+    <NavBar :id="id" @STORAGE_KEY="UpdateCart"></NavBar>
     <h1>Cart</h1>
-    <h3 :id="id" @addtocart="UpdateCart">In cart: {{ cart }}</h3>
+    <h3 :id="id" @STORAGE_KEY="UpdateCart">In cart: {{ cart.length }}</h3>
+
     <div
       class="row"
       style="display: inline"
       :id="id"
-      @addtocart="UpdateCart"
-      v-for="item in cart[0]"
-      v-bind:key="item.id"
+      :cart="cart"
+      @STORAGE_KEY="UpdateCart"
+      v-for="cart in cart"
+      v-bind:key="cart.id"
     >
-      <div class="col-md-10" style="display: inline">
-        item id skal hit
-        {{ item.id }}
-      </div>
+      <router-link :to="'/games/' + cart">
+        <div class="col-md-10" style="display: inline">
+          item id:
+          {{ cart }}
+        </div>
+      </router-link>
       <button
         style="display: inline"
         type="button"
-        class="btn btn-default thebutton"
-        v-on:click="RemoveFromCart(item.id)"
+        class="btn btn-default thebuttoncart"
+        @STORAGE_KEY="UpdateCart"
+        v-on:click="RemoveFromCart(cart)"
       >
-        Remove from cart
+        Remove
       </button>
     </div>
-    <div class="col-md-12" style="margin: 20px">
+    <div class="col-md-12" style="margin-top: 20px; margin-right:5px">
       <router-link :to="'/GameList/'">
-        <button type="button" class="btn thebutton">
+        <button type="button" class="thebutton">
           Go back to Games
         </button></router-link
       >
@@ -47,14 +52,15 @@ export default {
   props: ["id"],
   methods: {
     RemoveFromCart(id) {
-      this.cart -= 1;
       this.cart.splice(this.cart.indexOf(id), 1);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(this.cart));
-      localStorage.removeItem();
+      this.$emit(STORAGE_KEY, id);
+
       console.log(id);
     },
     UpdateCart(id) {
       this.cart.push(id);
+      this.$emit(STORAGE_KEY, id);
       localStorage.setItem(STORAGE_KEY, this.cart);
     }
   },
@@ -66,7 +72,7 @@ export default {
   },
   created() {
     this.cart = JSON.parse(localStorage.getItem(STORAGE_KEY));
-
+    console.log(this.cart);
     const app = this;
 
     axios({
@@ -91,10 +97,14 @@ export default {
 };
 </script>
 <style scoped>
-.thebutton {
-  background-color: #193031;
-  color: white;
+.thebuttoncart {
+  background-color: white;
+  color: #193031;
   padding: 10px;
   border: none;
+}
+.thebuttoncart:hover {
+  color: #193031;
+  background-color: aliceblue;
 }
 </style>

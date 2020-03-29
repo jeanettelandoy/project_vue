@@ -4,10 +4,10 @@
       <div class="col-md-1"><img src="../assets/logo_bb_w.png" /></div>
       <div class="col-md-4"><h1>Bits and Bots</h1></div>
       <div class="col-md-7" style="float:right display: inline">
-        <h5 :id="id" @addtocart="UpdateCart" v-bind="$attrs">
+        <h5 v-if="cart != null" :id="id" :cart="cart" @STORAGE_KEY="UpdateCart">
           In cart: {{ cart.length }}
         </h5>
-        <router-link :to="'/Cart/'" :id="id" @addtocart="UpdateCart">
+        <router-link :to="'/Cart/'" :id="id">
           <button class="btn">Go to cart</button></router-link
         >
       </div>
@@ -28,9 +28,8 @@ export default {
   methods: {
     UpdateCart(id) {
       this.cart.push(id);
-    },
-    EmptyCart() {
-      this.cart = [];
+      this.$emit(STORAGE_KEY, id);
+      localStorage.setItem(STORAGE_KEY, this.cart);
     }
   },
   created() {

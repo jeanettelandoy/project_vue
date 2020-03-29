@@ -1,9 +1,9 @@
 <template>
   <div>
-    <NavBar :cart="cart" @addtocart="UpdateCart"> </NavBar>
+    <NavBar :cart="cart" @STORAGE_KEY="UpdateCart"> </NavBar>
 
     <div class="container-fluid" style="padding: 20px;">
-      <h1 @addtocart="UpdateCart">add to cart {{ cart.length }} {{ cart }}</h1>
+      <!-- <h1 @addtocart="UpdateCart">add to cart {{ cart.length }} {{ cart }}</h1> -->
       <div class="card mb-3" style="max-width: 840px;">
         <div class="row">
           <div class="col-md-4" style="padding: 20px;">
@@ -63,23 +63,23 @@ export default {
   methods: {
     AddToCart(id) {
       this.cart.push(id);
-      this.$emit("addtocart", id);
+      //this.$emit("addtocart", id);
+
       localStorage.setItem(STORAGE_KEY, JSON.stringify(this.cart));
+      this.$emit(STORAGE_KEY, id);
     },
     UpdateCart(id) {
       this.cart.push(id);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(this.cart));
+      this.$emit(STORAGE_KEY, id);
     }
   },
   created() {
+    this.cart = JSON.parse(localStorage.getItem(STORAGE_KEY));
+
     const app = this;
     let routeid = this.$route.params.id;
 
-    // const segment = new URL(window.location.href).pathname
-    //   .split("/")
-    //   .filter(Boolean)
-    //   .pop();
-    // console.log(segment);
     axios({
       url:
         "https://cors-anywhere.herokuapp.com/https://api-v3.igdb.com/games/" +
