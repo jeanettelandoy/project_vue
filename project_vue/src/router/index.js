@@ -4,12 +4,13 @@ import Home from "../views/Home.vue";
 import LandingPage from "../views/LandingPage.vue";
 import GameList from "../views/GameList.vue";
 import _id from "../views/games/_id.vue";
+import Cart from "../views/Cart.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
+    path: "/Home",
     name: "Home",
     component: Home
   },
@@ -27,6 +28,11 @@ const routes = [
     path: "/games/:id",
     name: "_id",
     component: _id
+  },
+  {
+    path: "/cart",
+    name: "Cart",
+    component: Cart
   }
 ];
 

@@ -1,7 +1,9 @@
 <template>
   <div>
-    <NavBar></NavBar>
+    <NavBar :cart="cart" @addtocart="UpdateCart"> </NavBar>
+
     <div class="container-fluid" style="padding: 20px;">
+      <h1 @addtocart="UpdateCart">add to cart {{ cart.length }} {{ cart }}</h1>
       <div class="card mb-3" style="max-width: 840px;">
         <div class="row">
           <div class="col-md-4" style="padding: 20px;">
@@ -14,17 +16,28 @@
           <div class="col-md-8" style="padding: 10px;">
             <div class="card-body">
               <h2 class="card-title">{{ game[0].name }}</h2>
+
               <p class="card-text">{{ game[0].summary }}</p>
               <p class="card-text">
                 <small class="text-muted">Last updated 3 mins ago</small>
               </p>
-              <button type="button" class="btn thebutton">Add to cart</button>
+              <button
+                type="button"
+                class="btn thebutton"
+                v-on:click="AddToCart(game[0].id)"
+              >
+                Add to cart
+              </button>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-md-1">
-        <button type="button" class="btn thebutton">Go back to Games</button>
+      <div class="col-md-12">
+        <router-link :to="'/GameList/'">
+          <button type="button" class="btn thebutton">
+            Go back to Games
+          </button></router-link
+        >
       </div>
     </div>
   </div>
@@ -34,15 +47,29 @@
 import NavBar from "@/components/NavBarComponent.vue";
 import axios from "axios";
 
+const STORAGE_KEY = "cart-storeage";
 export default {
   components: {
     NavBar
   },
-
-  data() {
+  data: function() {
     return {
-      game: []
+      game: [0],
+      cart: []
     };
+  },
+  mounted() {},
+  props: ["id"],
+  methods: {
+    AddToCart(id) {
+      this.cart.push(id);
+      this.$emit("addtocart", id);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(this.cart));
+    },
+    UpdateCart(id) {
+      this.cart.push(id);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(this.cart));
+    }
   },
   created() {
     const app = this;
@@ -57,7 +84,7 @@ export default {
       url:
         "https://cors-anywhere.herokuapp.com/https://api-v3.igdb.com/games/" +
         routeid.toString() +
-        "/?fields=name,genres.name,cover.url,popularity&order=popularity:desc&expand=genres",
+        "/?fields=name,genres.name,cover.url,summary,popularity&order=popularity:desc&expand=genres",
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -68,10 +95,6 @@ export default {
     })
       .then(response => {
         app.game = response.data;
-        console.log(response.data);
-        // return {
-        //   game: response.data[0]
-        // };
       })
       .catch(err => {
         console.error(err);
@@ -79,7 +102,7 @@ export default {
   }
 };
 </script>
-<style scoped>
+<style>
 .thebutton {
   background-color: #193031;
   color: white;

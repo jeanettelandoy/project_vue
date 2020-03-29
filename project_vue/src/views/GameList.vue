@@ -1,8 +1,8 @@
 <template>
   <div>
-    <NavBar></NavBar>
+    <NavBar :cart="cart" @addtocart="UpdateCart"> </NavBar>
     <div class="row row-header"><h1>Games</h1></div>
-
+    <NProgress></NProgress>
     <div class="gamelistbody">
       <div v-for="game in games" class="[ col-sm-3 ]" v-bind:key="game.id">
         <router-link :to="'/games/' + game.id">
@@ -30,8 +30,22 @@ export default {
   },
   data() {
     return {
-      games: []
+      games: [],
+      cart: []
     };
+  },
+  props: ["id"],
+  methods: {
+    AddToCart(id) {
+      this.cart.push(id);
+      this.$emit("addtocart", id);
+      console.log(id);
+    },
+
+    UpdateCart(id) {
+      localStorage.getItem(this.cart);
+      this.cart.push(id);
+    }
   },
   // beforeMount: function() {
   //   const app = this;
