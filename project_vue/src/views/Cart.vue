@@ -2,7 +2,10 @@
   <div>
     <NavBar :id="id" @STORAGE_KEY="UpdateCart"></NavBar>
     <h1>Cart</h1>
-    <h3 :id="id" @STORAGE_KEY="UpdateCart">In cart: {{ cart.length }}</h3>
+    <div v-if="cart < 1">Cart is empty</div>
+    <h3 v-else :id="id" @STORAGE_KEY="UpdateCart">
+      In cart: {{ cart.length }}
+    </h3>
 
     <div
       style="max-width: 500px; margin: auto; border-bottom: 1px solid #193031; text-align: center;

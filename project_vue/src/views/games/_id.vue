@@ -3,7 +3,7 @@
     <NavBar :cart="cart" @STORAGE_KEY="UpdateCart"> </NavBar>
 
     <div class="container-fluid" style="padding: 20px;">
-      <!-- <h1 @addtocart="UpdateCart">add to cart {{ cart.length }} {{ cart }}</h1> -->
+      <h1 @addtocart="UpdateCart">cart {{ cart.length }}</h1>
       <div class="card mb-3" style="max-width: 840px;">
         <div class="row">
           <div class="col-md-4" style="padding: 20px;">
