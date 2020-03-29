@@ -6,8 +6,8 @@
 
 <script>
 (function() {
-  localStorage.setItem("username", "user");
-  localStorage.setItem("password", "paswd");
+  localStorage.setItem("username", "admin");
+  localStorage.setItem("password", "admin");
 })();
 </script>
 <style>

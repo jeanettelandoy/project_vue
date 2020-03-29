@@ -5,8 +5,8 @@
     <h3 :id="id" @STORAGE_KEY="UpdateCart">In cart: {{ cart.length }}</h3>
 
     <div
-      class="row"
-      style="display: inline"
+      style="max-width: 500px; margin: auto; border-bottom: 1px solid #193031; text-align: center;
+"
       :id="id"
       :cart="cart"
       @STORAGE_KEY="UpdateCart"
@@ -14,7 +14,11 @@
       v-bind:key="cart.id"
     >
       <router-link :to="'/games/' + cart">
-        <div class="col-md-10" style="display: inline">
+        <div
+          class="col-md-3"
+          style="display: inline;   padding: 10px;
+"
+        >
           item id:
           {{ cart }}
         </div>
@@ -29,9 +33,9 @@
         Remove
       </button>
     </div>
-    <div class="col-md-12" style="margin-top: 20px; margin-right:5px">
+    <div class="col-md-12" style="margin-top: 20px; margin-bottom: 20px;">
       <router-link :to="'/GameList/'">
-        <button type="button" class="thebutton">
+        <button type="button" class="btn thebutton">
           Go back to Games
         </button></router-link
       >
@@ -103,8 +107,18 @@ export default {
   padding: 10px;
   border: none;
 }
-.thebuttoncart:hover {
+.thebutton:hover {
   color: #193031;
-  background-color: aliceblue;
+  background-color: #f0ec74;
+  border: none;
+}
+.thebutton {
+  float: left;
+}
+footer {
+  background-color: #193031;
+  padding: 30px;
+  color: white;
+  margin-top: 20px;
 }
 </style>

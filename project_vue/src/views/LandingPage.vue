@@ -1,14 +1,10 @@
 <template>
   <div>
     <div class="jumbotron text-center">
-      <h1>Welcome to Bits and Bots!</h1>
+      <h1>Welcome to <br />Bits and Bots!</h1>
     </div>
     <div class="row">
-      <div class="col-md-5">
-        <h3>Register</h3>
-        <Register></Register>
-      </div>
-      <div class="col-md-5">
+      <div class="col-md-12">
         <h3>Log in</h3>
         <Login
           v-bind:showUsernameError="showUsernameError"
@@ -24,13 +20,11 @@
 
 <script>
 import Login from "@/components/LoginComponent.vue";
-import Register from "@/components/RegisterComponent.vue";
 
 export default {
   name: "LandingPage",
   components: {
-    Login,
-    Register
+    Login
   },
   data() {
     return {
@@ -74,8 +68,29 @@ export default {
 </script>
 
 <style scoped>
+h1 {
+  font-family: "Courier New", Courier, monospace;
+  font-weight: 700;
+  color: #f0ec74;
+}
 .col-md-5 {
   padding: 10px;
   margin: 10px;
+}
+.button {
+  background-color: #193031;
+  color: white;
+}
+
+.jumbotron {
+  background-image: url("../assets/bilde.png");
+  color: white;
+  height: 500px;
+}
+footer {
+  background-color: #193031;
+  padding: 30px;
+  color: white;
+  margin-top: 20px;
 }
 </style>

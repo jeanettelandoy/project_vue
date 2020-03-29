@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="row row--navbar">
-      <div class="col-md-1"><img src="../assets/logo_bb_w.png" /></div>
+      <router-link :to="'/GameList/'">
+        <div class="col-md-1"><img src="../assets/logo_bb_w.png" /></div
+      ></router-link>
       <div class="col-md-4"><h1>Bits and Bots</h1></div>
       <div class="col-md-7" style="float:right display: inline">
         <h5 v-if="cart != null" :id="id" :cart="cart" @STORAGE_KEY="UpdateCart">
